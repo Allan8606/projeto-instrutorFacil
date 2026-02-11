@@ -57,6 +57,7 @@ public class UserEntity implements UserDetails {
     private List<TrainingEntity> trainingExercises = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
 

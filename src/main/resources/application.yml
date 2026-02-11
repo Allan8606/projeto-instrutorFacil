@@ -28,3 +28,9 @@ spring:
     url: jdbc:postgresql://localhost:5433/instrutor-facil  # Adicione estas linhas
     user: postgres
     password: 86065542
+
+api:
+  security:
+    token:
+      secret: SeNhA_SeCrEtA_1234
+

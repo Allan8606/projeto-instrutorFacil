@@ -3,6 +3,7 @@ package com.allan_dev.instrutorFacil.handler;
 
 import com.allan_dev.instrutorFacil.exceptions.*;
 import org.springframework.http.*;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -83,6 +84,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 error.getMessage(),
                 error.getMessage());
     }
+
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(

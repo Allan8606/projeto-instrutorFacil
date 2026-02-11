@@ -4,6 +4,7 @@ import com.allan_dev.instrutorFacil.dto.request.UserRequest;
 import com.allan_dev.instrutorFacil.dto.response.UserResponse;
 import com.allan_dev.instrutorFacil.entity.TrainingEntity;
 import com.allan_dev.instrutorFacil.entity.UserEntity;
+import com.allan_dev.instrutorFacil.entity.enuns.Role;
 import com.allan_dev.instrutorFacil.exceptions.ExerciseNotRegistered;
 import com.allan_dev.instrutorFacil.exceptions.UserNotFound;
 import com.allan_dev.instrutorFacil.exceptions.UsernameAlreadyExists;
@@ -11,6 +12,7 @@ import com.allan_dev.instrutorFacil.mapper.UserMapper;
 import com.allan_dev.instrutorFacil.repository.TrainingRepository;
 import com.allan_dev.instrutorFacil.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final TrainingRepository trainingRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
 
@@ -30,7 +33,10 @@ public class UserService {
             throw new UsernameAlreadyExists();
         }
 
-        UserEntity userSaved =  userRepository.save(UserMapper.toUserEntity(request));
+        UserEntity userEntity = UserMapper.toUserEntity(request);
+        userEntity.setRole(Role.USER);
+        userEntity.setPassword(passwordEncoder.encode(request.password()));
+        UserEntity userSaved =  userRepository.save(userEntity);
         return UserMapper.toUserResponse(userSaved);
     }
 
